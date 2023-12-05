@@ -1,0 +1,23 @@
+flask==2.2.5
+Werkzeug==2.3.7
+jinja2==3.1.2
+flask-login==0.6.2
+flask_migrate==4.0.4
+WTForms==3.0.1
+flask_wtf==1.2.1
+flask-sqlalchemy==3.0.5
+sqlalchemy==2.0.21
+email_validator==2.0.0
+python-dotenv==0.19.2
+blinker==1.4
+WTForms-Alchemy==0.18.0
+flask-restx==1.0.3
+
+gunicorn==20.1.0
+Flask-Minify==0.37
+
+Flask-Dance==7.0.0
+PyJWT==2.4.0
+
+# flask_mysqldb
+# psycopg2-binary
