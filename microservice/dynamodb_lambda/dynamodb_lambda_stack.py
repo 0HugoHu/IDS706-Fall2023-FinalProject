@@ -23,20 +23,7 @@ class DynamodbLambdaStack(Stack):
                 name="user_name",
                 type=aws_dynamodb.AttributeType.STRING
             ),
-            billing_mode=aws_dynamodb.BillingMode.PAY_PER_REQUEST,
-            removal_policy=aws_dynamodb.RemovalPolicy.DESTROY
         )
-
-        demo_table.add_global_secondary_index(
-            index_name="user_name-index",
-            partition_key=aws_dynamodb.Attribute(
-              name="user_name",
-              type=aws_dynamodb.AttributeType.STRING
-            ),
-            projection_type=aws_dynamodb.ProjectionType.ALL
-        )
-
-        demo_table.add_attribute("password", aws_dynamodb.AttributeType.STRING)
 
         # create producer lambda function
         producer_lambda = aws_lambda.Function(self, "producer_lambda_function",

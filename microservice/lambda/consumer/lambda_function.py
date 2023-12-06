@@ -36,7 +36,7 @@ def lambda_handler(event, context):
         # print item of the table - see CloudWatch logs
         for i in response['Items']:
             print(json.dumps(i, cls=DecimalEncoder))
-
+    # test
     return {
         'statusCode': 200,
     }

@@ -36,7 +36,7 @@ def lambda_handler(event, context):
 
     print("PutItem succeeded:")
     print(json.dumps(response, indent=4, cls=DecimalEncoder))
-
+    # test
     return {
         'statusCode': 200,
     }
