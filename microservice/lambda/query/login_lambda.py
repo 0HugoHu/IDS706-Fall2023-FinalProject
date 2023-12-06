@@ -20,19 +20,20 @@ def lambda_handler(event, context):
       username = event['username']
       password = event['password']
 
-      # Perform the query to check if the username and password match
-      response = table.get_item(
-        Key={
-          'username': username
-        }
+      # Perform the scan to check if the username and password match
+      response = table.scan(
+        FilterExpression='username = :val',
+        ExpressionAttributeValues={':val': username}
       )
 
-      if 'Item' in response and response['Item']['password'] == password:
+      if response.get('Items') and response['Items'][0].get('password') == password:
+        print("Login successful")
         return {
           'statusCode': 200,
           'body': json.dumps({'login_successful': True})
         }
       else:
+        print("Login failed")
         return {
           'statusCode': 200,
           'body': json.dumps({'login_successful': False})

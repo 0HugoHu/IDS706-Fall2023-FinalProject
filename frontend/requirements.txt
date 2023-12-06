@@ -21,3 +21,6 @@ PyJWT==2.4.0
 
 # flask_mysqldb
 # psycopg2-binary
+
+boto3
+botocore

@@ -17,13 +17,8 @@ class Users(db.Model, UserMixin):
     __tablename__ = 'Users'
 
     id            = db.Column(db.Integer, primary_key=True)
-    username      = db.Column(db.String(64), unique=True)
+    username      = db.Column(db.String(64), unique=False)
     password      = db.Column(db.LargeBinary)
-
-    oauth_github  = db.Column(db.String(100), nullable=True)
-
-    api_token     = db.Column(db.String(100))
-    api_token_ts  = db.Column(db.Integer)    
 
     def __init__(self, **kwargs):
         for property, value in kwargs.items():

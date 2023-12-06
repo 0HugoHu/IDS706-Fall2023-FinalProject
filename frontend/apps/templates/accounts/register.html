@@ -37,6 +37,11 @@
 
               <div class="card-header text-center pt-4">
                 <h5>Sign UP</h5>
+                  <p class="mb-0">
+                    {% if msg %}
+                      <span class="text-danger">{{ msg | safe }}</span>
+                    {% endif %}
+                  </p>
               </div>
 
               <div class="card-body">

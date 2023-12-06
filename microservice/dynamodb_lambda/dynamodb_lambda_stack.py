@@ -28,7 +28,7 @@ class DynamodbLambdaStack(Stack):
         # create producer lambda function
         producer_lambda = aws_lambda.Function(self, "write_to_dynamodb_lambda_function",
                                               runtime=aws_lambda.Runtime.PYTHON_3_11,
-                                              handler="lambda_function.lambda_handler",
+                                              handler="write_to_dynamodb_lambda.lambda_handler",
                                               code=aws_lambda.Code.from_asset("./lambda/producer"))
 
         producer_lambda.add_environment("TABLE_NAME", demo_table.table_name)
@@ -39,7 +39,7 @@ class DynamodbLambdaStack(Stack):
         # create consumer lambda function
         consumer_lambda = aws_lambda.Function(self, "check_duplicate_username_lambda_function",
                                               runtime=aws_lambda.Runtime.PYTHON_3_11,
-                                              handler="lambda_function.lambda_handler",
+                                              handler="check_duplicate_username_lambda.lambda_handler",
                                               code=aws_lambda.Code.from_asset("./lambda/consumer"))
 
         consumer_lambda.add_environment("TABLE_NAME", demo_table.table_name)
@@ -53,7 +53,7 @@ class DynamodbLambdaStack(Stack):
         # create query lambda function
         query_lambda = aws_lambda.Function(self, "check_login_lambda_function",
                                               runtime=aws_lambda.Runtime.PYTHON_3_11,
-                                              handler="lambda_function.lambda_handler",
+                                              handler="login_lambda.lambda_handler",
                                               code=aws_lambda.Code.from_asset("./lambda/query"))
 
         query_lambda.add_environment("TABLE_NAME", demo_table.table_name)
