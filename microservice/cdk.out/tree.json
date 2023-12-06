@@ -8,13 +8,13 @@
         "id": "dynamodb-lambda",
         "path": "dynamodb-lambda",
         "children": {
-          "demo_table": {
-            "id": "demo_table",
-            "path": "dynamodb-lambda/demo_table",
+          "user_info": {
+            "id": "user_info",
+            "path": "dynamodb-lambda/user_info",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "dynamodb-lambda/demo_table/Resource",
+                "path": "dynamodb-lambda/user_info/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
                   "aws:cdk:cloudformation:props": {
@@ -43,7 +43,7 @@
               },
               "ScalingRole": {
                 "id": "ScalingRole",
-                "path": "dynamodb-lambda/demo_table/ScalingRole",
+                "path": "dynamodb-lambda/user_info/ScalingRole",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.114.0"
@@ -134,7 +134,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "demotable002BE91A",
+                                        "userinfo3B0496F0",
                                         "Arn"
                                       ]
                                     },
@@ -212,7 +212,7 @@
                     "environment": {
                       "variables": {
                         "TABLE_NAME": {
-                          "Ref": "demotable002BE91A"
+                          "Ref": "userinfo3B0496F0"
                         }
                       }
                     },
@@ -223,7 +223,7 @@
                         "Arn"
                       ]
                     },
-                    "runtime": "python3.6"
+                    "runtime": "python3.11"
                   }
                 },
                 "constructInfo": {
@@ -319,7 +319,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "demotable002BE91A",
+                                        "userinfo3B0496F0",
                                         "Arn"
                                       ]
                                     },
@@ -397,7 +397,7 @@
                     "environment": {
                       "variables": {
                         "TABLE_NAME": {
-                          "Ref": "demotable002BE91A"
+                          "Ref": "userinfo3B0496F0"
                         }
                       }
                     },
@@ -408,7 +408,7 @@
                         "Arn"
                       ]
                     },
-                    "runtime": "python3.6"
+                    "runtime": "python3.11"
                   }
                 },
                 "constructInfo": {
@@ -422,17 +422,17 @@
               "version": "2.114.0"
             }
           },
-          "one_minute_rule": {
-            "id": "one_minute_rule",
-            "path": "dynamodb-lambda/one_minute_rule",
+          "one_hour_rule": {
+            "id": "one_hour_rule",
+            "path": "dynamodb-lambda/one_hour_rule",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "dynamodb-lambda/one_minute_rule/Resource",
+                "path": "dynamodb-lambda/one_hour_rule/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Events::Rule",
                   "aws:cdk:cloudformation:props": {
-                    "scheduleExpression": "rate(1 minute)",
+                    "scheduleExpression": "rate(1 hour)",
                     "state": "ENABLED",
                     "targets": [
                       {
@@ -463,7 +463,7 @@
               },
               "AllowEventRuledynamodblambdaproducerlambdafunction1E714662": {
                 "id": "AllowEventRuledynamodblambdaproducerlambdafunction1E714662",
-                "path": "dynamodb-lambda/one_minute_rule/AllowEventRuledynamodblambdaproducerlambdafunction1E714662",
+                "path": "dynamodb-lambda/one_hour_rule/AllowEventRuledynamodblambdaproducerlambdafunction1E714662",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                   "aws:cdk:cloudformation:props": {
@@ -477,7 +477,7 @@
                     "principal": "events.amazonaws.com",
                     "sourceArn": {
                       "Fn::GetAtt": [
-                        "oneminuteruleE9168CE5",
+                        "onehourruleB6EA11CB",
                         "Arn"
                       ]
                     }
@@ -490,7 +490,7 @@
               },
               "AllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D6": {
                 "id": "AllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D6",
-                "path": "dynamodb-lambda/one_minute_rule/AllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D6",
+                "path": "dynamodb-lambda/one_hour_rule/AllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D6",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                   "aws:cdk:cloudformation:props": {
@@ -504,7 +504,7 @@
                     "principal": "events.amazonaws.com",
                     "sourceArn": {
                       "Fn::GetAtt": [
-                        "oneminuteruleE9168CE5",
+                        "onehourruleB6EA11CB",
                         "Arn"
                       ]
                     }

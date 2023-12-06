@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/66524e5766a0ef68682982c4e45723c5e8d0bb16de00c6bb066cca7c5ce31cc4.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/9105cf14249c0c669f2f20cde9d033e71d683e2ad867e405ecff96d9976940fd.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -34,10 +34,10 @@
         "dynamodb-lambda.assets"
       ],
       "metadata": {
-        "/dynamodb-lambda/demo_table/Resource": [
+        "/dynamodb-lambda/user_info/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "demotable002BE91A"
+            "data": "userinfo3B0496F0"
           }
         ],
         "/dynamodb-lambda/producer_lambda_function/ServiceRole/Resource": [
@@ -76,22 +76,22 @@
             "data": "consumerlambdafunction40710347"
           }
         ],
-        "/dynamodb-lambda/one_minute_rule/Resource": [
+        "/dynamodb-lambda/one_hour_rule/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "oneminuteruleE9168CE5"
+            "data": "onehourruleB6EA11CB"
           }
         ],
-        "/dynamodb-lambda/one_minute_rule/AllowEventRuledynamodblambdaproducerlambdafunction1E714662": [
+        "/dynamodb-lambda/one_hour_rule/AllowEventRuledynamodblambdaproducerlambdafunction1E714662": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "oneminuteruleAllowEventRuledynamodblambdaproducerlambdafunction1E7146624783D604"
+            "data": "onehourruleAllowEventRuledynamodblambdaproducerlambdafunction1E714662B9E4C659"
           }
         ],
-        "/dynamodb-lambda/one_minute_rule/AllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D6": [
+        "/dynamodb-lambda/one_hour_rule/AllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D6": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "oneminuteruleAllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D6888AA909"
+            "data": "onehourruleAllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D66FA0440E"
           }
         ],
         "/dynamodb-lambda/CDKMetadata/Default": [

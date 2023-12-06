@@ -1,6 +1,6 @@
 {
  "Resources": {
-  "demotable002BE91A": {
+  "userinfo3B0496F0": {
    "Type": "AWS::DynamoDB::Table",
    "Properties": {
     "AttributeDefinitions": [
@@ -23,7 +23,7 @@
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain",
    "Metadata": {
-    "aws:cdk:path": "dynamodb-lambda/demo_table/Resource"
+    "aws:cdk:path": "dynamodb-lambda/user_info/Resource"
    }
   },
   "producerlambdafunctionServiceRole5400FE21": {
@@ -77,7 +77,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "demotable002BE91A",
+          "userinfo3B0496F0",
           "Arn"
          ]
         },
@@ -112,7 +112,7 @@
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
-       "Ref": "demotable002BE91A"
+       "Ref": "userinfo3B0496F0"
       }
      }
     },
@@ -123,7 +123,7 @@
       "Arn"
      ]
     },
-    "Runtime": "python3.6"
+    "Runtime": "python3.11"
    },
    "DependsOn": [
     "producerlambdafunctionServiceRoleDefaultPolicy727DC938",
@@ -190,7 +190,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "demotable002BE91A",
+          "userinfo3B0496F0",
           "Arn"
          ]
         },
@@ -225,7 +225,7 @@
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
-       "Ref": "demotable002BE91A"
+       "Ref": "userinfo3B0496F0"
       }
      }
     },
@@ -236,7 +236,7 @@
       "Arn"
      ]
     },
-    "Runtime": "python3.6"
+    "Runtime": "python3.11"
    },
    "DependsOn": [
     "consumerlambdafunctionServiceRoleDefaultPolicy3D6F3025",
@@ -249,10 +249,10 @@
     "aws:asset:property": "Code"
    }
   },
-  "oneminuteruleE9168CE5": {
+  "onehourruleB6EA11CB": {
    "Type": "AWS::Events::Rule",
    "Properties": {
-    "ScheduleExpression": "rate(1 minute)",
+    "ScheduleExpression": "rate(1 hour)",
     "State": "ENABLED",
     "Targets": [
      {
@@ -276,10 +276,10 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "dynamodb-lambda/one_minute_rule/Resource"
+    "aws:cdk:path": "dynamodb-lambda/one_hour_rule/Resource"
    }
   },
-  "oneminuteruleAllowEventRuledynamodblambdaproducerlambdafunction1E7146624783D604": {
+  "onehourruleAllowEventRuledynamodblambdaproducerlambdafunction1E714662B9E4C659": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
@@ -292,16 +292,16 @@
     "Principal": "events.amazonaws.com",
     "SourceArn": {
      "Fn::GetAtt": [
-      "oneminuteruleE9168CE5",
+      "onehourruleB6EA11CB",
       "Arn"
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "dynamodb-lambda/one_minute_rule/AllowEventRuledynamodblambdaproducerlambdafunction1E714662"
+    "aws:cdk:path": "dynamodb-lambda/one_hour_rule/AllowEventRuledynamodblambdaproducerlambdafunction1E714662"
    }
   },
-  "oneminuteruleAllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D6888AA909": {
+  "onehourruleAllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D66FA0440E": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
@@ -314,13 +314,13 @@
     "Principal": "events.amazonaws.com",
     "SourceArn": {
      "Fn::GetAtt": [
-      "oneminuteruleE9168CE5",
+      "onehourruleB6EA11CB",
       "Arn"
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "dynamodb-lambda/one_minute_rule/AllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D6"
+    "aws:cdk:path": "dynamodb-lambda/one_hour_rule/AllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D6"
    }
   },
   "CDKMetadata": {

@@ -14,16 +14,33 @@ class DynamodbLambdaStack(Stack):
 
         # create dynamo table
         demo_table = aws_dynamodb.Table(
-            self, "demo_table",
+            self, "user_info",
             partition_key=aws_dynamodb.Attribute(
                 name="id",
                 type=aws_dynamodb.AttributeType.STRING
-            )
+            ),
+            sort_key=aws_dynamodb.Attribute(
+                name="user_name",
+                type=aws_dynamodb.AttributeType.STRING
+            ),
+            billing_mode=aws_dynamodb.BillingMode.PAY_PER_REQUEST,
+            removal_policy=aws_dynamodb.RemovalPolicy.DESTROY
         )
+
+        demo_table.add_global_secondary_index(
+            index_name="user_name-index",
+            partition_key=aws_dynamodb.Attribute(
+              name="user_name",
+              type=aws_dynamodb.AttributeType.STRING
+            ),
+            projection_type=aws_dynamodb.ProjectionType.ALL
+        )
+
+        demo_table.add_attribute("password", aws_dynamodb.AttributeType.STRING)
 
         # create producer lambda function
         producer_lambda = aws_lambda.Function(self, "producer_lambda_function",
-                                              runtime=aws_lambda.Runtime.PYTHON_3_6,
+                                              runtime=aws_lambda.Runtime.PYTHON_3_11,
                                               handler="lambda_function.lambda_handler",
                                               code=aws_lambda.Code.from_asset("./lambda/producer"))
 
@@ -34,7 +51,7 @@ class DynamodbLambdaStack(Stack):
 
         # create consumer lambda function
         consumer_lambda = aws_lambda.Function(self, "consumer_lambda_function",
-                                              runtime=aws_lambda.Runtime.PYTHON_3_6,
+                                              runtime=aws_lambda.Runtime.PYTHON_3_11,
                                               handler="lambda_function.lambda_handler",
                                               code=aws_lambda.Code.from_asset("./lambda/consumer"))
 
@@ -44,11 +61,11 @@ class DynamodbLambdaStack(Stack):
         demo_table.grant_read_data(consumer_lambda)
 
         # create a Cloudwatch Event rule
-        one_minute_rule = aws_events.Rule(
-            self, "one_minute_rule",
-            schedule=aws_events.Schedule.rate(Duration.minutes(1)),
+        one_hour_rule = aws_events.Rule(
+            self, "one_hour_rule",
+            schedule=aws_events.Schedule.rate(Duration.hours(1)),
         )
 
         # Add target to Cloudwatch Event
-        one_minute_rule.add_target(aws_events_targets.LambdaFunction(producer_lambda))
-        one_minute_rule.add_target(aws_events_targets.LambdaFunction(consumer_lambda))
+        one_hour_rule.add_target(aws_events_targets.LambdaFunction(producer_lambda))
+        one_hour_rule.add_target(aws_events_targets.LambdaFunction(consumer_lambda))
