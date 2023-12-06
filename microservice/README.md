@@ -1,59 +1,64 @@
-# AWS CDK Examples
+# AWS DynamoDB , Lambda and CloudWatch
 
-This repository contains a set of example projects for the [AWS Cloud Development
-Kit](https://github.com/aws/aws-cdk).
+## Overview
 
-## Table of Contents
-1. [About this Repo](#About)
-2. [Examples](#Examples)
-3. [Learning Resources](#Learning)
-4. [Additional Examples](#AddEx)
-4. [License](#License)
+Creates an AWS DynamoDB and Lambda function with the Python language bindings for CDK. Lambda function
+gets triggered from a CloudWatch event every minute.
 
-## About this Repo <a name="About"></a>
-This repo is our official list of CDK example code. The repo is subdivided into sections for each language (see ["Examples"](#Examples)). Each language has its own subsection of examples with the ultimate aim of complete language parity (same subset of examples exist in each language). These examples each provide a demonstration of a common service implementation, or infrastructure pattern that could be useful in your use of the CDK for building your own infrastructure.
+![alt text](./architecture.png "Resources created with CDK")
 
-We welcome contributions to this repo in the form of fixes to existing examples or addition of new examples. For more information on contributing, please see the [CONTRIBUTING](https://github.com/aws-samples/aws-cdk-examples/blob/master/CONTRIBUTING.md) guide.
+The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
-This is considered an intermediate learning resource and should typically be referenced after reading the Developer Guide or CDK Workshop (please see [Learning Resources](#Learning) for more information on these resources).
+This project is set up like a standard Python project.  The initialization
+process also creates a virtualenv within this project, stored under the .env
+directory.  To create the virtualenv it assumes that there is a `python3`
+(or `python` for Windows) executable in your path with access to the `venv`
+package. It requires you to use Pythn 3.6 as Lambda runtime is set to Python 3.6. 
+For other python versions, please update runtime for consumer and producer functions under dynamodb_lambda/dynamodb_lambda_stack.py
+If for any reason the automatic creation of the virtualenv fails,
+you can create the virtualenv manually.
 
-## Examples <a name="Examples"></a>
-This repo contains examples in each language supported by the CDK. Some languages are fully supported by [JSII](https://github.com/aws/jsii), but as additional languages are added, you will see those marked as `Developer Preview`. You can find the examples for each of those languages at the following links:
+To manually create a virtualenv on MacOS and Linux:
 
-| Language | JSII Language-Stability |
-|----------|-------------------------|
-| [Typescript Examples](https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript) | _Stable_ |
-| [Python Examples](https://github.com/aws-samples/aws-cdk-examples/tree/master/python) | _Stable_ |
-| [.NET Examples](https://github.com/aws-samples/aws-cdk-examples/tree/master/csharp) | _Stable_ |
-| [Java Examples](https://github.com/aws-samples/aws-cdk-examples/tree/master/java) | _Stable_ |
-| [Go Examples](https://github.com/aws-samples/aws-cdk-examples/tree/master/go) | _Stable_ |
+```
+$ python3 -m venv .env
+```
 
+After the init process completes and the virtualenv is created, you can use the following
+step to activate your virtualenv.
 
-## Learning Resources <a name="Learning"></a>
-While this is an excellent learning resource for the CDK, there are other resources that can be referenced to assist with your learning/development process.
+```
+$ source .env/bin/activate
+```
 
-### Official Resources
-- [Developer Guide](https://docs.aws.amazon.com/cdk/latest/guide/home.html)
-- [API Reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html)
-- [CDK Repository](https://github.com/aws/aws-cdk)
-- [CDK Construct Hub](https://constructs.dev/)
-- [CDK Workshop](https://cdkworkshop.com/)
+If you are a Windows platform, you would activate the virtualenv like this:
 
-### Unofficial/Community Resources
-- [AwesomeCDK](https://github.com/kolomied/awesome-cdk)
+```
+% .env\Scripts\activate.bat
+```
 
-> If you have created a CDK learning resource and would like it to be listed here, please read the related [CONTRIBUTING](https://github.com/aws-samples/aws-cdk-examples/blob/master/CONTRIBUTING.md#Resources) section for more info.
+Once the virtualenv is activated, you can install the required dependencies.
 
-## Additional Examples <a name="AddEx"></a>
+```
+$ pip install -r requirements.txt
+```
 
-The examples listed below are larger examples hosted in their own repositories that demonstrate more complex or complete CDK applications. 
->If you would like your repo to be listed here, please read the [CONTRIBUTING](https://github.com/aws-samples/aws-cdk-examples/blob/master/CONTRIBUTING.md#Resources) guide for more details.
+At this point you can now synthesize the CloudFormation template for this code.
 
-| Example | Description | Owner |
-|---------|-------------|-------|
-| [aws-cdk-changelogs-demo](https://github.com/aws-samples/aws-cdk-changelogs-demo) | A full serverless Node.js application stack deployed using CDK. It uses AWS Lambda, AWS Fargate, DynamoDB, Elasticache, S3, and CloudFront. | AWS |
+```
+$ cdk synth
+```
 
+To add additional dependencies, for example other CDK libraries, just add
+them to your `setup.py` file and rerun the `pip install -r requirements.txt`
+command.
 
-# License <a name="License"></a>
+## Useful commands
 
-This library is licensed under the Apache 2.0 License.
+ * `cdk ls`          list all stacks in the app
+ * `cdk synth`       emits the synthesized CloudFormation template
+ * `cdk deploy`      deploy this stack to your default AWS account/region
+ * `cdk diff`        compare deployed stack with current state
+ * `cdk docs`        open CDK documentation
+
+Enjoy!

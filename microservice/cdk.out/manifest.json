@@ -1,0 +1,131 @@
+{
+  "version": "35.0.0",
+  "artifacts": {
+    "dynamodb-lambda.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "dynamodb-lambda.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "dynamodb-lambda": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "dynamodb-lambda.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/66524e5766a0ef68682982c4e45723c5e8d0bb16de00c6bb066cca7c5ce31cc4.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "dynamodb-lambda.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "dynamodb-lambda.assets"
+      ],
+      "metadata": {
+        "/dynamodb-lambda/demo_table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "demotable002BE91A"
+          }
+        ],
+        "/dynamodb-lambda/producer_lambda_function/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "producerlambdafunctionServiceRole5400FE21"
+          }
+        ],
+        "/dynamodb-lambda/producer_lambda_function/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "producerlambdafunctionServiceRoleDefaultPolicy727DC938"
+          }
+        ],
+        "/dynamodb-lambda/producer_lambda_function/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "producerlambdafunctionCE724CE7"
+          }
+        ],
+        "/dynamodb-lambda/consumer_lambda_function/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "consumerlambdafunctionServiceRole116B0746"
+          }
+        ],
+        "/dynamodb-lambda/consumer_lambda_function/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "consumerlambdafunctionServiceRoleDefaultPolicy3D6F3025"
+          }
+        ],
+        "/dynamodb-lambda/consumer_lambda_function/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "consumerlambdafunction40710347"
+          }
+        ],
+        "/dynamodb-lambda/one_minute_rule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oneminuteruleE9168CE5"
+          }
+        ],
+        "/dynamodb-lambda/one_minute_rule/AllowEventRuledynamodblambdaproducerlambdafunction1E714662": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oneminuteruleAllowEventRuledynamodblambdaproducerlambdafunction1E7146624783D604"
+          }
+        ],
+        "/dynamodb-lambda/one_minute_rule/AllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D6": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oneminuteruleAllowEventRuledynamodblambdaconsumerlambdafunction1EF0C7D6888AA909"
+          }
+        ],
+        "/dynamodb-lambda/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/dynamodb-lambda/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/dynamodb-lambda/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/dynamodb-lambda/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "dynamodb-lambda"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
