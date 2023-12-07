@@ -74,7 +74,7 @@ def login():
         password = request.form['password']
 
         login_response = invoke_lambda_function('dynamodb-lambda-checkloginlambdafunction77404F11-KArjitXGmsrv',
-                                                    {'username': username, 'password': password})
+                                                {'username': username, 'password': password})
         login_result = json.loads(login_response['Payload'].read().decode())
         body_content = json.loads(login_result['body'])
         if login_response['StatusCode'] != 200 or body_content['login_successful'] is False:
@@ -102,7 +102,8 @@ def register():
 
         username = request.form['username']
 
-        duplicate_response = invoke_lambda_function('dynamodb-lambda-checkduplicateusernamelambdafuncti-abhSKTg7U0CT', {'username': username})
+        duplicate_response = invoke_lambda_function('dynamodb-lambda-checkduplicateusernamelambdafuncti-abhSKTg7U0CT',
+                                                    {'username': username})
         duplicate_result = json.loads(duplicate_response['Payload'].read().decode())
         body_content = json.loads(duplicate_result['body'])
         if body_content['duplicate']:
