@@ -47,6 +47,22 @@
             });
         }
 
+        // Function to temporarily display a message in the chat container
+        function fetchMessages(message) {
+            $.ajax({
+                url: '/get_messages',  // Replace with your Flask route
+                method: 'GET',
+                success: function (data) {
+                    var newMessage = data.messages;
+                    newMessage.push(message);
+                    displayMessages(newMessage);
+                },
+                error: function (error) {
+                    console.error('Error fetching messages:', error);
+                }
+            });
+        }
+
         // Function to display messages in the chat container
         function displayMessages(messages) {
             var chatContainer = $('#chat-container');
@@ -57,7 +73,18 @@
             // Append each message to the chat container
             messages.forEach(function (message) {
                 var messageClass = message.incoming ? 'incoming' : 'outgoing';
-                var messageHTML = '<div class="message ' + messageClass + '"><p>' + message.text + '</p></div>';
+                var avatarURL = message.incoming ? '../../static/assets/img/noah-gift.jpg' : '../../static/assets/img/team-3.jpg';
+                var messageHTML = `
+                    ${message.incoming ? `<div style="display: flex;flex-direction: column;align-items: flex-start;">` : `<div style="display: flex;flex-direction: column;align-items: flex-end;">`}
+                        ${message.incoming ? `<img class="avatar" src="${avatarURL}" alt="Avatar" style="align-self: flex-start;">` : `<img class="avatar" src="${avatarURL}" alt="Avatar" style="align-self: flex-end;">`}
+                        ${message.incoming ? `<div class="message ${messageClass}" style="align-self: flex-start;">
+                                                  <p style="margin-bottom: 0">${message.text}</p>
+                                              </div>` :
+                                             `<div class="message ${messageClass}" style="align-self: flex-end;">
+                                                  <p style="margin-bottom: 0">${message.text}</p>
+                                              </div>`}
+                        </div>`;
+
                 chatContainer.append(messageHTML);
             });
 
@@ -71,6 +98,8 @@
             var messageText = messageInput.val();
 
             if (messageText.trim() !== '') {
+                 messageInput.val('');
+                 fetchMessages({text: messageText, incoming: false});
                 $.ajax({
                     url: '/send_message',  // Replace with your Flask route for sending messages
                     method: 'POST',
@@ -90,7 +119,7 @@
 
         // Fetch messages initially and set up periodic refresh
         fetchMessages();
-        setInterval(fetchMessages, 3000);  // Fetch messages every 3 seconds (adjust as needed)
+        {#setInterval(fetchMessages, 3000);  // Fetch messages every 3 seconds (adjust as needed)#}
 
     </script>
 {% endblock javascripts %}

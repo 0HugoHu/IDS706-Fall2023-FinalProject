@@ -18,8 +18,6 @@ import asyncio
 def index():
     return render_template('home/index.html')
 
-
-
 messages: List[dict[str, Union[bool, str]]] = [
 
 ]

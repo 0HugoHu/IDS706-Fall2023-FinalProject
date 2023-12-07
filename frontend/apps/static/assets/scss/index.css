@@ -25,15 +25,16 @@ body {
 }
 
 .chat-container {
-    max-height: calc(100vh - 100px); /* Adjust as needed */
+    max-height: calc(100vh - 200px); /* Adjust as needed */
     overflow-y: auto;
-    padding-bottom: 15vh;
 }
 
 .message {
-    max-width: 70%;
+    max-width: 80%;
     margin: 10px;
     padding: 10px;
+    margin-left: 0;
+    margin-right: 0;
     border-radius: 10px;
     clear: both;
 }
