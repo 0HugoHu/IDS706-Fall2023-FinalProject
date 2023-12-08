@@ -7,7 +7,7 @@ COPY . /app
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN npm install -g aws-cdk
+RUN pip install -g aws-cdk
 
 EXPOSE 8080
 
