@@ -33,6 +33,22 @@
     <script src="{{ config.ASSETS_ROOT }}/js/index.js"></script>
 
     <script>
+        document.getElementById('message-input').addEventListener('keypress', function (event) {
+            // Check if the pressed key is Enter (keyCode 13)
+            if (event.key === 'Enter') {
+                // Call your sendMyMessage() function
+                sendMyMessage();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            localStorage.setItem("theme", themeStates[1])
+            themeIndicator.classList.remove(indicators[0])
+            themeIndicator.classList.add(indicators[1])
+            page.classList.remove(pageClass[0])
+            page.classList.add(pageClass[1])
+        });
+
         // Function to fetch messages from the server
         function fetchMessages() {
             $.ajax({
@@ -74,13 +90,15 @@
             messages.forEach(function (message) {
                 var messageClass = message.incoming ? 'incoming' : 'outgoing';
                 var avatarURL = message.incoming ? '../../static/assets/img/noah-gift.jpg' : '../../static/assets/img/team-3.jpg';
+                var name = message.incoming ? 'Noah Gift' : `{{ name }}`;
                 var messageHTML = `
                     ${message.incoming ? `<div style="display: flex;flex-direction: column;align-items: flex-start;">` : `<div style="display: flex;flex-direction: column;align-items: flex-end;">`}
                         ${message.incoming ? `<img class="avatar" src="${avatarURL}" alt="Avatar" style="align-self: flex-start;">` : `<img class="avatar" src="${avatarURL}" alt="Avatar" style="align-self: flex-end;">`}
+                        ${message.incoming ? `<p style="align-self: flex-start;margin-bottom: 0;font-size: smaller">${name}</p>` : `<p style="align-self: flex-end;margin-bottom: 0;font-size: smaller">${name}</p>`}
                         ${message.incoming ? `<div class="message ${messageClass}" style="align-self: flex-start;">
                                                   <p style="margin-bottom: 0">${message.text}</p>
                                               </div>` :
-                                             `<div class="message ${messageClass}" style="align-self: flex-end;">
+                    `<div class="message ${messageClass}" style="align-self: flex-end;">
                                                   <p style="margin-bottom: 0">${message.text}</p>
                                               </div>`}
                         </div>`;
@@ -98,8 +116,8 @@
             var messageText = messageInput.val();
 
             if (messageText.trim() !== '') {
-                 messageInput.val('');
-                 fetchMessages({text: messageText, incoming: false});
+                messageInput.val('');
+                fetchMessages({text: messageText, incoming: false});
                 $.ajax({
                     url: '/send_message',  // Replace with your Flask route for sending messages
                     method: 'POST',

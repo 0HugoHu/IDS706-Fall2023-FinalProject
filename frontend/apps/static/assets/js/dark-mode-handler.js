@@ -26,10 +26,10 @@ function setPage(theme) {
 
 
 if (currentTheme === null) {
-    localStorage.setItem("theme", themeStates[1])
-    setIndicator(1)
-    setPage(1)
-    themeSwitch.checked = false;
+    localStorage.setItem("theme", themeStates[0])
+    setIndicator(0)
+    setPage(0)
+    themeSwitch.checked = true;
 }
 if (currentTheme === themeStates[0]) {
     setIndicator(0)

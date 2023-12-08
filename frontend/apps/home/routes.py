@@ -2,63 +2,78 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
+import json
+import uuid
 
 from apps.home import blueprint
 from flask import render_template, request, jsonify
-from flask_login import login_required
+from flask_login import login_required, current_user
 from jinja2 import TemplateNotFound
 
 from apps.config import API_GENERATOR
 from typing import Union, List
 from characterai import PyAsyncCAI
 import os
-import asyncio
+
+chat_id = ""
+token = os.environ.get("CHARACTER_AI_TOKEN")
+char_id = "0O_ZRNC8cerri24KyvASHYrr9aXAzUbqRNQhq-xk1DE"
+user_id = "307781294"
+client = PyAsyncCAI(token)
+messages: List[dict[str, Union[bool, str]]] = []
+
+
 @blueprint.route('/index')
-# @login_required
-def index():
-    return render_template('home/index.html')
-
-messages: List[dict[str, Union[bool, str]]] = [
-
-]
-
+@login_required
+async def index():
+    global client
+    client = await initialize_ai_chat()
+    return render_template('home/index.html', name=current_user.username)
 
 async def initialize_ai_chat():
-    client = PyAsyncCAI(os.environ.get("CHARACTER_AI_TOKEN"))
-    char = "0O_ZRNC8cerri24KyvASHYrr9aXAzUbqRNQhq-xk1DE"
-    chat = await client.chat2.get_chat(char)
-    author = {'author_id': chat['chats'][0]['creator_id']}
+    global chat_id
+    chat_id = str(uuid.uuid4())
+    _client = PyAsyncCAI(token)
+    async with _client.connect() as chat2:
+        _chat, _greeting = await chat2.new_chat(char_id, chat_id, user_id)
 
-    async def get_chat():
-        return await client.chat2.get_chat(char)
+        print(json.dumps(_chat))
+        print(json.dumps(_greeting))
 
-    # Run the get_chat coroutine in the background
-    chat_task = asyncio.create_task(get_chat())
+        greeting = _greeting['turn']['candidates'][0]['raw_content'].split('For example:')[1].strip()
+        formatted_string = ("Warning: You are interacting with an AI language model. "
+                            "The responses do not reflect any personal opinions or "
+                            "views of Noah Gift. <br> <br>" + greeting)
+        messages.append({'text': formatted_string, 'incoming': True})
+        return _client
 
-    return client, char, chat_task, author
 
 @blueprint.route('/get_messages')
-# @login_required
+@login_required
 def get_messages():
     return jsonify({'messages': messages})
 
 
 @blueprint.route('/send_message', methods=['POST'])
-# @login_required
+@login_required
 async def send_message():
     new_message = request.form.get('message')
     print(f'Received new message: {new_message}')
     messages.append({'text': new_message, 'incoming': False})
 
-    client, char, chat_task, author = await initialize_ai_chat()
-
     # Wait for the get_chat coroutine to complete
-    chat = await chat_task
+    # _client = PyAsyncCAI(token)
+    author = {
+        'author_id': user_id,
+        'is_human': True,
+        'name': current_user.username
+    }
     async with client.connect() as chat2:
         data = await chat2.send_message(
-            char, chat['chats'][0]['chat_id'],
+            char_id, chat_id,
             new_message, author
         )
+        print(json.dumps(data))
         # name = data['src_char']['participant']['name']
         text = data['turn']['candidates'][0]['raw_content']
         messages.append({'text': text, 'incoming': True})

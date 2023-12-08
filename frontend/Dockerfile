@@ -6,6 +6,9 @@ ENV PYTHONUNBUFFERED 1
 ENV FLASK_APP run.py
 ENV DEBUG True
 
+# Expose port 80
+EXPOSE 80
+
 COPY requirements.txt .
 
 # install python dependencies
@@ -23,5 +26,3 @@ RUN flask gen_api
 
 # gunicorn
 CMD ["gunicorn", "--config", "gunicorn-cfg.py", "run:app"]
-
-EXPOSE 5005
