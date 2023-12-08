@@ -1,4 +1,5 @@
 FROM python:3.10
+LABEL authors="hugohu"
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
