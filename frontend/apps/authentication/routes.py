@@ -51,18 +51,6 @@ def route_default():
     return redirect(url_for('authentication_blueprint.login'))
 
 
-# Login & Registration
-
-@blueprint.route("/github")
-def login_github():
-    """ Github login """
-    if not github.authorized:
-        return redirect(url_for("github.login"))
-
-    res = github.get("/user")
-    return redirect(url_for('home_blueprint.index'))
-
-
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm(request.form)

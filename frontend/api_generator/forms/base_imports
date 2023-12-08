@@ -1,4 +1,0 @@
-from apps.models import *
-
-
-ModelForm = model_form_factory(Form)

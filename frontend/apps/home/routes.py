@@ -26,6 +26,7 @@ messages: List[dict[str, Union[bool, str]]] = []
 @blueprint.route('/index')
 @login_required
 async def index():
+    messages.clear()
     global client
     client = await initialize_ai_chat()
     return render_template('home/index.html', name=current_user.username)
