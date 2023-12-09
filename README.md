@@ -2,8 +2,8 @@
 [![Lint](https://github.com/nogibjj/IDS706-Fall2023-FinalProject/actions/workflows/lint.yml/badge.svg)](https://github.com/nogibjj/IDS706-Fall2023-FinalProject/actions/workflows/lint.yml)
 [![Format](https://github.com/nogibjj/IDS706-Fall2023-FinalProject/actions/workflows/format.yml/badge.svg)](https://github.com/nogibjj/IDS706-Fall2023-FinalProject/actions/workflows/rustfmt.yml)
 
-[Youtube Video Here](https://youtu.be/_DSV9nnL_Gc) 
-&nbsp;&nbsp;![YouTube Video Views](https://img.shields.io/youtube/views/_DSV9nnL_Gc)
+[Youtube Video Here](https://youtu.be/tMEN3feeSNU) 
+&nbsp;&nbsp;![YouTube Video Views](https://img.shields.io/youtube/views/tMEN3feeSNU)
 
 
 ## Final Project: Chat with Noah Gift!
@@ -170,7 +170,7 @@ Below I print the ```Login Lambda```'s response time to analyze the performance 
 The maximum response time is ```300ms``` which is acceptable for the log in function.
 
 ### 8. Teamwork Reflection
-See ```teamwork``` direction for our four team members' reflection and contribution.
+See ```teamwork``` directory for our four team members' reflection and contribution.
 
 ### 9. Dependencies
 #### 9.1. Flask Skeleton
