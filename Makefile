@@ -4,8 +4,10 @@ ENV_PREFIX=$(shell python3 -c "if __import__('pathlib').Path('frontend/.venv/bin
 .PHONY: fmt format
 fmt format:              ## Format code using black & isort.
 	$(ENV_PREFIX)isort frontend/apps/
+	$(ENV_PREFIX)isort microservice/
 	$(ENV_PREFIX)black -l 79 frontend/apps/
 	$(ENV_PREFIX)black -l 79 frontend/tests/
+	$(ENV_PREFIX)black -l 79 microservice/
 
 .PHONY: lint
 lint:             ## Run ruff, black, mypy linters.
