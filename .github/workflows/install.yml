@@ -1,0 +1,15 @@
+name: Hugo Install
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.11.5
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11.5
+    - name: Install dependencies
+      id: install
+      run: |
+        make install
